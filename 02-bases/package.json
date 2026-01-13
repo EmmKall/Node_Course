@@ -1,15 +1,26 @@
 {
   "name": "bases",
   "version": "1.0.0",
-  "description": "bases of nodeJS",
+  "description": "nodeJS base",
   "keywords": [
     "nodejs"
   ],
   "license": "ISC",
   "author": "emmkall",
   "type": "commonjs",
-  "main": "index.js",
+  "main": "app.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node src/app.js",
+    "dev": "nodemon src/app.js"
+  },
+  "devDependencies": {
+    "nodemon": "^3.1.11"
+  },
+  "dependencies": {
+    "axios": "^1.13.2",
+    "get-age": "^1.0.1",
+    "uuid": "^13.0.0",
+    "winston": "^3.19.0"
   }
 }
