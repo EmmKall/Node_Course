@@ -1,3 +1,5 @@
 
-./02-bases/node_modules
 *.log
+./02-bases/node_modules
+
+./03-ts/node_modules
