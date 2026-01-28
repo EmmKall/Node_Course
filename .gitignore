@@ -3,3 +3,12 @@
 ./02-bases/node_modules
 
 ./03-ts/node_modules
+
+./04-ts/node_modules
+./03-ts/converage
+
+./07-appMulti/converage
+
+./08-NOC/.env
+
+./09-RESTWeb/node_modules
