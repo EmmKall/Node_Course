@@ -1,0 +1,19 @@
+{
+  "posts": [
+    { "id": 1, "title": "json-server", "author": "typicode" },
+    { "id": 2, "title": "Angular REST API", "author": "emmkall" },
+    { "id": 3, "title": "Node.js Backend", "author": "typicode" },
+    { "id": 4, "title": "Frontend Best Practices", "author": "emmkall" }
+  ],
+  "comments": [
+    { "id": 1, "body": "some comment", "postId": 1 },
+    { "id": 2, "body": "great post!", "postId": 1 },
+    { "id": 3, "body": "very helpful", "postId": 2 },
+    { "id": 4, "body": "thanks for sharing", "postId": 3 }
+  ],
+  "profile": {
+    "name": "typicode",
+    "role": "admin",
+    "website": "https://example.com"
+  }
+}

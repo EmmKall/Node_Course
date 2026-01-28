@@ -1,0 +1,34 @@
+{
+  "name": "07-test-app",
+  "version": "1.0.0",
+  "description": "Instrucciones para correr y ejecutar nuestro programa",
+  "keywords": [],
+  "license": "ISC",
+  "author": "emmkall",
+  "type": "commonjs",
+  "main": "index.js",
+  "scripts": {
+    "dev": "ts-node src/app.ts -b 6",
+    "dev:nodemon": "nodemon -b 7",
+    "build": "rimraf ./dist && tsc",
+    "start": "npm run build && node dist/app.js",
+    "test": "jest",
+    "test:watch":"jest --watchAll",
+    "test:coverage": "jest --coverage"
+  },
+  "dependencies": {
+    "yargs": "^17.7.2"
+  },
+  "devDependencies": {
+    "@types/jest": "^30.0.0",
+    "@types/node": "^20.5.2",
+    "@types/yargs": "^17.0.24",
+    "jest": "^30.2.0",
+    "nodemon": "^3.0.1",
+    "rimraf": "^5.0.1",
+    "supertest": "^7.2.2",
+    "ts-jest": "^29.4.6",
+    "ts-node": "^10.9.1",
+    "typescript": "^5.1.6"
+  }
+}
