@@ -1,3 +1,5 @@
+import { Validators } from "../../../config";
+
 export class UpdateCategoryDto {
 
     private constructor(
@@ -11,9 +13,12 @@ export class UpdateCategoryDto {
 
     static create(object: {[key: string]: any}): [string?, UpdateCategoryDto?] {
         const {id, name, user: {id: user}, isAvailabe } = object;
+     
         if(!id) return ['Id is required', undefined];
         if(!name) return ['Name is required', undefined];
         if(!user) return ['User is required', undefined];
+        if(!Validators.isMongoID(user)) return ["User must be a valid id", undefined];
+
         return [undefined, new UpdateCategoryDto(id, name, user, isAvailabe)];
     }
 

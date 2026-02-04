@@ -12,7 +12,8 @@ export class CategoryService {
     try {
       const data = await CategoryModel.find()
       .skip((page - 1) * limit)
-      .limit(limit * 1);
+      .limit(limit * 1)
+      .populate('user', 'name email');
       if(!data) throw CustomError.badRequest(`Categories not found`);
       return {error: false, data};
     }catch(err) {
@@ -23,7 +24,7 @@ export class CategoryService {
 
   public async getCategoryById(categoryFindDto: FindCategoryDto) {
     const { id } = categoryFindDto.fromObject();
-    const category = await CategoryModel.findById(id);
+    const category = await CategoryModel.findById(id).populate('user', 'name');
     if(!category) throw CustomError.badRequest(`Category with id ${id} not found`);
     return {error: false, data: category};
   }

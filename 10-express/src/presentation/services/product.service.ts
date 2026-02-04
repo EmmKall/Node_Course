@@ -11,7 +11,9 @@ export class ProductService {
         try {
           const data = await ProductModel.find()
             .skip((page - 1) * limit)
-            .limit(limit * 1);
+            .limit(limit * 1)
+            .populate('user', 'name email')
+            .populate('category', 'name');
           if (!data) throw CustomError.notFound("Products not found");
           return { data };
         } catch (err) {
@@ -22,7 +24,7 @@ export class ProductService {
 
     public async getProductById(findProductDto: FindProductDto) {
         const { id } = findProductDto.fromObject();
-        const data = await ProductModel.findById(id);
+        const data = await ProductModel.findById(id).populate('user', 'name').populate('category', 'name');
         if(!data) throw CustomError.notFound("Product not found");;
         return {error: false, data};
     }

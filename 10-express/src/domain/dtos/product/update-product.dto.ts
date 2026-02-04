@@ -1,3 +1,5 @@
+import { Validators } from "../../../config";
+
 export class UpdateProductDto {
 
     private constructor(
@@ -18,9 +20,10 @@ export class UpdateProductDto {
         if(!name) return ['Name is required', undefined];
         if(!price) return ['Price is required', undefined];
         if(!user) return ['User is required', undefined];
+        if(!Validators.isMongoID(user)) return ["User must be a valid id", undefined];
         if(!description) return ['Description is required', undefined];
         if(!category) return ['Category is required', undefined];
-        if(!user) return ['User is required', undefined];
+        if(!Validators.isMongoID(category)) return ["Category must be a valid id", undefined];
 
         return [undefined, new UpdateProductDto(id, name, isAvailable || true, price, description, user, category, img)];
     }

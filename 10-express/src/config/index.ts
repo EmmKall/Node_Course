@@ -3,3 +3,4 @@ export * from './regular-exp';
 export * from './bycrypt';
 export * from './jwt.adapter';
 export * from './getUUID';
+export * from './validators';
