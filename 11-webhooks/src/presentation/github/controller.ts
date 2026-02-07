@@ -1,34 +1,46 @@
-import { Request, Response } from "express";
-import { GithubService } from "./services/github.service";
+import { Request, Response } from 'express';
+import { GitHubService } from '../services/github.service';
+import { DiscordService } from '../services/discord.service';
 
-export class GitHubContoller {
 
-    constructor(
-        private readonly githubService = new GithubService()
-    ) {
+
+export class GithubController {
+
+
+  constructor(
+    private readonly githubService = new GitHubService(),
+    private readonly discordService = new DiscordService(),
+  ){}
+
+
+  webhookHandler = ( req: Request, res: Response ) => {
+
+    const githubEvent = req.header('x-github-event') ?? 'unknown';
+    const payload = req.body;
+    let message:string;
+
+    switch( githubEvent ) {
+
+      case 'star':
+        message = this.githubService.onStar( payload );
+      break;
+
+      case 'issues':
+        message = this.githubService.onIssue(payload);
+      break;
+
+
+      default:
+        message = `Unknown event ${ githubEvent }`;
 
     }
+    
+    this.discordService.notify(message)
+      .then( () => res.status(202).send('Accepted') )
+      .catch( () => res.status(500).json({ error: 'internal server error'}) )
 
-    public async webHookHandle(req: Request, res: Response) {
-        console.log('Endpoind called')
-        
-        const gitHubEvent = req.header('x-github-event') ?? 'unknown'; console.log({gitHubEvent});
-        const signature  = req.header('x-hub-signature-256') ?? 'unknown'; console.log({signature});
+  }
 
-        const payload = req.body;
-        let response;
-        switch(gitHubEvent){
-            case 'issues':
-                response = this.githubService.onIssue(payload);
-                break;
-            case 'star':
-                response = this.githubService.onStar(payload);
-                break;
-            default:
-                response = `Unknow event: ${gitHubEvent}`;
-                break;
-        }
-        res.status(202).json(response);
-    }
+
 
 }

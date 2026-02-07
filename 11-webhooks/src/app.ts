@@ -1,24 +1,24 @@
-import expres, { Request, Response } from "express";
-import { Envs } from "./config";
-import { GitHubContoller } from "./presentation/github/controller";
+import express from 'express';
+import { Envs } from './config';
+import { GithubController } from './presentation/github/controller';
+import { GithubSha256Middleware } from './presentation/middlewares/github-sha256.middleware';
 
 (() => {
-    main();
-
+  main();
 })();
 
 function main() {
-    const app = expres();
+  const app = express();
 
-    const controller = new GitHubContoller();
+  const controller = new GithubController();
 
-    app.use(expres.json());
+  app.use(express.json());
 
+  app.use(GithubSha256Middleware.verifyGithubSignature);
 
-    app.post('/api/github', controller.webHookHandle);
+  app.post('/api/github', controller.webhookHandler);
 
-    app.listen(Envs.PORT, () => {
-        console.log(`App running on port ${Envs.PORT}`);
-    });
-
+  app.listen(Envs.PORT, () => {
+    console.log(`App running on port ${Envs.PORT}`);
+  });
 }
