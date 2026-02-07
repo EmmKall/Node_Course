@@ -17,7 +17,6 @@ export class CategoryService {
       if(!data) throw CustomError.badRequest(`Categories not found`);
       return {error: false, data};
     }catch(err) {
-      // console.log(err);
       return { error: true, message: 'Unexpected error' };
     }
   }

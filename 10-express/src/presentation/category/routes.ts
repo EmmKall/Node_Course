@@ -1,6 +1,4 @@
 import { Router } from "express";
-// import { AuthController } from "./controller";
-import { envs } from "../../config";
 import { CategoryController } from "./controller";
 import { CategoryService } from "../services/category.service";
 

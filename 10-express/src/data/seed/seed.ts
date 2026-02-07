@@ -25,16 +25,21 @@ async function main() {
     const categories = await CategoryModel.insertMany(
         seedData.categories.map( category => ({
             ...category,
-            user: user[ Math.floor(Math.random() * user.length ) ]._id
+            user: user[ getRamdomFromCeroToX(user.length ) ]._id
         }))
     )
     //Create products
     const products = await ProductModel.insertMany(
         seedData.products.map( product => ({
             ...product,
-            user: user[ Math.floor(Math.random() * user.length ) ]._id,
+            user: user[ getRamdomFromCeroToX(user.length ) ]._id,
             category: categories[ Math.floor(Math.random() * categories.length ) ]._id
         }))
     )
 
+}
+
+const getRamdomFromCeroToX = (x: number): number => {
+    const n: number = Math.floor(Math.random() * x );
+    return n;
 }

@@ -1,4 +1,5 @@
 import mongoose from "mongoose";
+import { CustomError } from "../../domain";
 
 interface ConnectionOptions {
     mongoUrl: string;
@@ -15,7 +16,7 @@ export class MongoDatabase {
             return true;
         }catch(err) {
             console.error('Error connecting to MongoDB:', err);
-            throw err;
+            throw CustomError.internalError(`Error connection to MongoDB: ${err}`);
         }
     }
 

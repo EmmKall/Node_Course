@@ -18,7 +18,7 @@ export class RegisterUserDto {
     if (!password) { return ['password is required']; }
     if (password.length < 6) { return ['password must be at least 6 characters']; }
     
-    const token: string = getUUID(15);
+    const token: string = getUUID();
 
     return [undefined, new RegisterUserDto(name, username, email, password, token)];
   }
