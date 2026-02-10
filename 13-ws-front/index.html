@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>WS</title>
+</head>
+<body>
+    <h1>Web Sockets - <small></small></h1>
+
+    <form>
+        <input type="text" placeholder="Send message">
+        <button type="submit">Send</button>
+    </form>
+
+    <ul id="messages">
+
+    </ul>
+
+    <script>
+        let socket = null;
+        const form     = document.querySelector('form');
+        const inputMsg = document.querySelector('input');
+        const statusElem   = document.querySelector('small');
+
+        form.addEventListener('submit', (event) => {
+            event.preventDefault();
+            sendMessage();
+        });
+
+        function renderMessage() {
+            const messages = document.getElementById('messages');
+            const message = document.createElement('li');
+            message.textContent = event.data;
+            messages.prepend(message);
+        }
+
+        function sendMessage() {
+            const message = inputMsg.value;
+            inputMsg.value = '';
+            socket.send(message); 
+        }
+
+        function connectSocketServer() {
+            socket = new WebSocket('ws://localhost:3001');
+
+            socket.onopen = (event) => {
+                statusElem.innerHTML= 'Connected';
+                // console.log(event);
+            }
+
+            socket.onmessage = (event) => {
+                // console.log(event);
+                renderMessage();
+            }
+
+            socket.onclose = (event) => {
+                statusElem.innerHTML= 'Disconnected';
+                setTimeout(() => {
+                    statusElem.innerHTML= 'Connecting';
+                    connectSocketServer();
+                }, 1500);
+            }
+
+        }
+    
+        connectSocketServer();
+
+    </script>
+
+</body>
+</html>
